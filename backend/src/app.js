@@ -7,6 +7,7 @@ const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("mongo-sanitize");
 const hpp = require("hpp");
 const compression = require("compression");
+const errorMiddleware = require("./middleware/errorMiddleware");
 
 const app = express();
 
@@ -88,6 +89,8 @@ app.get("/", function (request, response) {
         message: "CodeForge API Running"
     });
 });
+
+app.use(errorMiddleware);
 
 
 module.exports = app;
