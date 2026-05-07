@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { use } = require("react");
+
+// in mongo db id is stored as _id and if it is stored as user.id internally it is _id.toString
 
 const userSchema = new mongoose.Schema({
     username : {
@@ -56,3 +59,40 @@ userSchema.pre("save",async function(next){
     this.password = await bcrypt.hash(this.password,10);
     next();
 })
+
+// compare password 
+userSchema.methods.comparePassword = async function(enteredPassword){
+    return await bcrypt.compare(enteredPassword,this.password);
+}
+
+// generate access token
+userSchema.methods.generateAccessToken = async function(){
+    return jwt.sign(
+        {
+        id : this._id,
+        role : this.role
+    },
+    process.env.JWT_ACCESS_SECRET,
+    {
+        expiresIn : process.env.ACCESS_TOKEN_EXPIRE
+    }
+)
+}
+
+
+// generate refresh token
+
+userSchema.method.generateRefreshToken = function(){
+    return jwt.sign(
+        {
+        id : this._id,
+    },
+    process.env.JWT_REFRESH_SECRET,
+    {
+        expiresIn : process.env.REFRESH_TOKEN_EXPIRE
+    }
+)
+}
+
+const User = mongoose.model("User",userSchema);
+module.exports = User;
