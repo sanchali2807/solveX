@@ -10,8 +10,8 @@ const userSchema = new mongoose.Schema({
         required : [true, "Username is required"],
         unique : true,
         trim : true,
-        minLength : [3 , "Username must be atleast exceed length 3"],
-        maxLength : [30 , "Username must not exceed length 30"]
+        minlength : [3 , "Username must be atleast exceed length 3"],
+        maxlength : [30 , "Username must not exceed length 30"]
     },
     email : {
         type : String,
@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     password : {
         type : String,
         required : [true , "Password is required"],
-        minLength : [8, "Password must be 8 character long"],
+        minlength : [8, "Password must be 8 character long"],
         select : false
         // this is so that password can not be fetched using mongo db queries
     },
@@ -51,12 +51,12 @@ const userSchema = new mongoose.Schema({
 )
 
 // hash password before save 
-userSchema.pre("save",async function(next){
+userSchema.pre("save",async function(){
     if(!this.isModified("password")){
-        return next();
+        return ;
     }
     this.password = await bcrypt.hash(this.password,10);
-    next();
+    // next();
 })
 
 // compare password 
@@ -81,7 +81,7 @@ userSchema.methods.generateAccessToken = async function(){
 
 // generate refresh token
 
-userSchema.method.generateRefreshToken = function(){
+userSchema.methods.generateRefreshToken = function(){
     return jwt.sign(
         {
         id : this._id,
