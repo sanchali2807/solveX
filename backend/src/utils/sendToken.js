@@ -13,7 +13,7 @@ const sendToken = async function(user,statusCode,res){
         httpOnly : true,
         // JS cannot access 
         secure : process.env.NODE_ENV === "production",
-        sameSite = "strict"
+        sameSite : "strict"
     }
     
     // send response
@@ -22,9 +22,9 @@ const sendToken = async function(user,statusCode,res){
         accessToken,
         user : {
             id : user._id,
-            username = user.username,
+            username : user.username,
             email : user.email,
-            role = user.role
+            role : user.role
         }
     })
 

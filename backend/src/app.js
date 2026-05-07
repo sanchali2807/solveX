@@ -9,6 +9,7 @@ const hpp = require("hpp");
 const compression = require("compression");
 const errorMiddleware = require("./middleware/errorMiddleware");
 
+const authRoutes = require("./routes/authRoutes")
 const app = express();
 
 
@@ -89,6 +90,8 @@ app.get("/", function (request, response) {
         message: "CodeForge API Running"
     });
 });
+
+app.use("/api/auth",authRoutes);
 
 app.use(errorMiddleware);
 

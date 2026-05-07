@@ -32,13 +32,13 @@ exports.loginUser = asyncHandler(async function(req,res,next){
     const user = await User.findOne({email}).select("+password");
     // Even though password is hidden by default, include it THIS TIME.
     if(!user){
-        return next(new ErrorHandler("User does not exist",400));
+        return next(new ErrorHandler("Invalid password or email",400));
     }
 
     //check password
     const isPasswordMatching = await user.comparePassword(password);
     if(!isPasswordMatching){
-        return next(new ErrorHandler("Invalid password",400));
+        return next(new ErrorHandler("Invalid Password or Email",400));
     }
     // send token
     sendToken(user,200,res);

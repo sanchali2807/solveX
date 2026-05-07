@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { use } = require("react");
 
 // in mongo db id is stored as _id and if it is stored as user.id internally it is _id.toString
 
