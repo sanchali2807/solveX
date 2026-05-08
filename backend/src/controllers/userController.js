@@ -10,6 +10,6 @@ exports.getMyProfile = asyncHandler(async function(req,res,next){
 exports.adminDashBoard = asyncHandler(async function(req,res,next){
     return res.status(200).json({
         success : true,
-        message : "Welcone Admin"
+        message : "Welcome Admin"
     })
 })

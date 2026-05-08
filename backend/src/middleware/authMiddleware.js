@@ -1,4 +1,4 @@
-const { jwt } = require("jsonwebtoken");
+const jwt  = require("jsonwebtoken");
 const asyncHandler = require("../utils/asyncHandler");
 const ErrorHandler = require("../utils/errorHandler");
 const User = require("../models/userModel");
