@@ -9,7 +9,8 @@ const hpp = require("hpp");
 const compression = require("compression");
 const errorMiddleware = require("./middleware/errorMiddleware");
 
-const authRoutes = require("./routes/authRoutes")
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userroutes");
 const app = express();
 
 
@@ -102,6 +103,7 @@ app.get("/", function (request, response) {
 });
 
 app.use("/api/auth",authRoutes);
+app.use("/api/users",userRoutes)
 
 app.use(errorMiddleware);
 
