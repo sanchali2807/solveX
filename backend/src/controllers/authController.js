@@ -18,13 +18,19 @@ exports.registerUser = asyncHandler(async function(req,res,next){
         return next(new ErrorHandler("User already exists",400));
     }
 
+    let role = "user";
+
+if (email === process.env.DEFAULT_ADMIN_EMAIL) {
+    role = "admin";
+}
     const user = await User.create({
         username,
         email,
-        password
+        password,
+        role
     });
 
-    await sendToken(user,200,res);
+    await sendToken(user,200,res,"Registeration successful");
 })
 
 
@@ -47,7 +53,7 @@ exports.loginUser = asyncHandler(async function(req,res,next){
     }
 
     // send token
-    await sendToken(user,200,res);
+    await sendToken(user,200,res,"Login successful");
 })
 
 

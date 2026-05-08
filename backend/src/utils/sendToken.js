@@ -1,6 +1,6 @@
 // const User = require("../models/userModel")
 // we store the refresh token in cookie and access token in the frontend 
-const sendToken = async function(user,statusCode,res){
+const sendToken = async function(user,statusCode,res,message){
     const accessToken = await user.generateAccessToken();
 const refreshToken = await user.generateRefreshToken();
 
@@ -20,6 +20,7 @@ const refreshToken = await user.generateRefreshToken();
     res.status(statusCode).cookie("refreshToken",refreshToken,cookieOption).json({
         success : true,
         accessToken,
+        message,
         user : {
             id : user._id,
             username : user.username,
