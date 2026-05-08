@@ -10,7 +10,7 @@ const compression = require("compression");
 const errorMiddleware = require("./middleware/errorMiddleware");
 
 const authRoutes = require("./routes/authRoutes");
-const userRoutes = require("./routes/userroutes");
+const userRoutes = require("./routes/userRoutes");
 const app = express();
 
 
