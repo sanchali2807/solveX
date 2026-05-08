@@ -39,8 +39,18 @@ app.use(limiter);
 
 
 // BODY PARSING
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(
+    express.json({
+        limit: "10kb"
+        // limits the amount of json sent
+    })
+);
+app.use(
+    express.urlencoded({
+        extended: true,
+        limit: "10kb"
+    })
+);
 
 
 // COOKIE PARSER
