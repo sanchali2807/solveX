@@ -31,3 +31,11 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZmRkZDUyMmUxYWRhNDlmMzY2NjY4MSI
     "email" : "san1@gmail.com",
     "password" : "&Year122"
 }
+
+
+WHY MULTER EXISTS
+Express cannot handle file uploads by default.
+Multer:
+parses multipart/form-data
+extracts uploaded files
+adds file info to:
