@@ -44,3 +44,31 @@ exports.updateProfile = asyncHandler(async function(req,res,next){
         user : updatedUser
     })
 })
+
+// update password
+
+exports.updatePassword = asyncHandler(async function(req,res,next){
+    // get user with password
+    const user = await User.findById(req.user.id).select("+password");
+
+    if(!user){
+        return next(new ErrorHandler("User not found",404))
+    }
+
+    //verify current password
+    const isPasswordCorrect = await user.comparePassword(req.body.currentPassword);
+
+    if(!isPasswordCorrect){
+        return new next(new ErrorHandler("Password is incorrect",401));
+    }
+    
+    // update password
+    user.password = req.body.newPassword;
+    await user.save();
+
+    return res.status(200).json({
+        success : true,
+        message : "Password updated successfully",
+
+    })
+})
